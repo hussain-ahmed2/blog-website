@@ -25,6 +25,10 @@ export interface Comment {
     updatedAt: string;
 }
 
-export interface PostWithComments extends Post {
-    comments: Comment[];
+export interface Like {
+    id: number;
+    postId: number;
+    userId: number;
+    createdAt: string;
+    updatedAt: string;
 }
