@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Karla } from "next/font/google";
 import "./globals.css";
+import RootProvider from "@/contexts/RootProvider";
+import Navbar from "@/components/Navbar";
 
 const karla = Karla({
   subsets: ["latin"],
@@ -18,12 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${karla.className} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+		<html lang="en">
+			<body className={`${karla.className} antialiased`}>
+				<RootProvider>
+					<Navbar />
+					<div className="mt-14">{children}</div>
+				</RootProvider>
+			</body>
+		</html>
   );
 }
