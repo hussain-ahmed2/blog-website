@@ -51,8 +51,12 @@ export default function AuthProvider({
 		setUser({} as User);
 	}
 
+	function getUserById(id: number) {
+		return users.find((user) => user.id === id);
+	}
+
 	return (
-		<AuthContext.Provider value={{ user, handleRegister, handleLogin, handleLogout }}>
+		<AuthContext.Provider value={{ user, handleRegister, handleLogin, handleLogout, getUserById }}>
 			{children}
 		</AuthContext.Provider>
 	);
