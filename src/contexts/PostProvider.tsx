@@ -33,10 +33,8 @@ export default function PostProvider({
 		if (!title.trim() || !body.trim()) return;
 		const post = posts.find((post) => post.id === postId);
 		if (!post) return;
-		post.title = title;
-		post.body = body;
-		post.updatedAt = new Date().toUTCString();
-		setPosts((prev) => [...prev]);
+		const updatedPost = { ...post, title, body, updatedAt: new Date().toUTCString() };
+		setPosts((prev) => prev.map((post) => (post.id === postId ? updatedPost : post)));
 	}
 
 	function handleDeletePost(postId: number) {
@@ -50,9 +48,9 @@ export default function PostProvider({
     function handleLikePost(postId: number, userId: number) {
         const post = posts.find((post) => post.id === postId);
         if (!post) return;
-        const like = likes.find((like) => like.postId === postId && like.userId === userId);
-        if (like) {
-            setLikes((prev) => prev.filter((like) => like.id !== like.id));
+        const currentLike = likes.find((like) => like.postId === postId && like.userId === userId);
+        if (currentLike) {
+            setLikes((prev) => prev.filter((like) => like.id !== currentLike!.id));
         } else {
             const newLike: Like = {
                 id: new Date().getTime(),
@@ -79,11 +77,11 @@ export default function PostProvider({
     }
 
     function getComments(postId: number) {
-        return comments.filter((comment) => comment.postId === postId);
+        return [...comments].sort((a, b) => b.id - a.id).filter((comment) => comment.postId === postId);
     }
 
     function getLikes(postId: number) {
-        return likes.filter((like) => like.postId === postId);
+        return [...likes].sort((a, b) => b.id - a.id).filter((like) => like.postId === postId);
     }
 
 	function isLikedByUser(postId: number, userId: number) {
