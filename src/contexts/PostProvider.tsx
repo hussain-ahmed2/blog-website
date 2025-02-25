@@ -86,6 +86,10 @@ export default function PostProvider({
         return likes.filter((like) => like.postId === postId);
     }
 
+	function isLikedByUser(postId: number, userId: number) {
+		return likes.some((like) => like.postId === postId && like.userId === userId);
+	}
+
 	return (
 		<PostContext.Provider
 			value={{
@@ -98,6 +102,7 @@ export default function PostProvider({
                 getComments,
                 getLikes,
 				getPostById,
+				isLikedByUser
 			}}
 		>
 			{children}
