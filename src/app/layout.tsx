@@ -24,7 +24,7 @@ export default function RootLayout({
 			<body className={`${karla.className} antialiased`}>
 				<RootProvider>
 					<Navbar />
-					<div className="mt-14">{children}</div>
+					<div className="mt-14 max-w-5xl mx-auto">{children}</div>
 				</RootProvider>
 			</body>
 		</html>
