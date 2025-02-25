@@ -8,6 +8,7 @@ export interface AuthContextType {
     handleRegister: (userData: Omit<RegisterUserData, "confirmPassword">) => boolean;
     handleLogin: (email: string, password: string) => HandleLoginResponse;
     handleLogout: () => void;
+    getUserById: (id: number) => User | undefined;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
